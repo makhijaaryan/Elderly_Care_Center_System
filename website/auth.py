@@ -33,6 +33,7 @@ def signup():
         pass1=request.form.get('password1')
         pass2=request.form.get('password2')
         contactNo=request.form.get('contactNo')
+        role=request.form.get('role')
 
         user=User.query.filter_by(email=email).first()
         
@@ -43,12 +44,12 @@ def signup():
         elif (len(contactNo)!=10):
             flash("Incorrect number entered!", category='error')
         else:
-            new_user=User(email=email, name=name, password=generate_password_hash(pass1,method='sha256'), contactNo=contactNo)
+            new_user=User(email=email, name=name, password=generate_password_hash(pass1,method='sha256'), contactNo=contactNo, role=role)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash("Account created!", category='success')
-            print(f"Name:{name}\nEmail:{email}\nPassword: {pass1}\nContact Number:{contactNo}\n")
+            print(f"Name:{name}\nEmail:{email}\nPassword: {pass1}\nContact Number:{contactNo}\nRole:{role}\n")
             return redirect(url_for('views.home'))
          
     return render_template("signup.html", user=current_user)

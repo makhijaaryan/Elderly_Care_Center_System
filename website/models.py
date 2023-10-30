@@ -34,6 +34,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     name = db.Column(db.String(150))
     contactNo = db.Column(db.String(10))
+    role=db.Column(db.String(10))
     notes=db.relationship('Note')
 
 
